@@ -1,2 +1,2 @@
-INSERT INTO PERSON (first_name, last_name, title)
-VALUES ('James', 'Kirk', 'Capt');
+INSERT INTO PERSON (id, first_name, last_name, title)
+VALUES (1, 'James', 'Kirk', 'Capt');
