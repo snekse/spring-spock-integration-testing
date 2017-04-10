@@ -1,0 +1,20 @@
+package com.objectpartners.eskens.entities
+
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.Id
+import javax.persistence.Table
+
+@Entity
+@Table
+class Person {
+
+    @Id @GeneratedValue
+    Long id
+
+    String firstName
+
+    String lastName
+
+    String title
+}
