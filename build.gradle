@@ -29,7 +29,10 @@ dependencies {
 	compile('org.codehaus.groovy:groovy')
 	runtime('com.h2database:h2')
 
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-2')
-	testCompile('com.blogspot.toomuchcoding:spock-subjects-collaborators-extension:1.2.1')
+    def spockVersion = '1.1-groovy-2.4-rc-2'
+
+	testCompile("org.springframework.boot:spring-boot-starter-test")
+	testCompile("org.spockframework:spock-core:$spockVersion")
+    testCompile("org.spockframework:spock-spring:$spockVersion")
+	testCompile("com.blogspot.toomuchcoding:spock-subjects-collaborators-extension:1.2.1")
 }
