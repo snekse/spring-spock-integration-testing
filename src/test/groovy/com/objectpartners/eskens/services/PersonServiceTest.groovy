@@ -16,16 +16,31 @@ class PersonServiceTest extends Specification {
 
     @Collaborator PersonRepo personRepo = Mock()
 
+    @Collaborator ExternalRankingService externalRankingService = Mock()
+
+    Person jamesKirk = new Person(id: 1L, firstName: 'James', lastName: 'Kirk', title: 'Capt')
+
     def "GetAddressToForPersonId"() {
         when:
         def addressTo = personService.getAddressToForPersonId(1L)
 
         then: 'Return an expected Person from our mocked repo'
-        1 * personRepo.findOne(1L) >> { Long id ->
-            new Person(id: id, firstName: 'James', lastName: 'Kirk', title: 'Capt')
-        }
+        1 * personRepo.findOne(1L) >>  { jamesKirk }
 
         and: 'AddressTo is formatted as expected'
         addressTo == 'Capt James Kirk'
+    }
+
+    def "GetRank by personId"() {
+        when:
+        def rank = personService.getRank(1L)
+
+        then: 'Return an expected Rank from our mocked rank service'
+        1 * personRepo.findOne(1L) >> { jamesKirk }
+        1 * externalRankingService.getRank(jamesKirk) >> { new Rank(level: 1, classification: 'Captain') }
+
+        and: 'we return the Rank from the external service unaltered'
+        rank.level == 1
+        rank.classification == 'Captain'
     }
 }
