@@ -1,17 +1,16 @@
 package com.objectpartners.eskens.controllers
 
+import com.objectpartners.eskens.config.IntegrationTestMockingConfig
 import com.objectpartners.eskens.entities.Person
 import com.objectpartners.eskens.services.ExternalRankingService
 import com.objectpartners.eskens.services.Rank
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Import
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.MvcResult
 import spock.lang.Specification
-import spock.mock.DetachedMockFactory
 
 import static org.springframework.http.MediaType.APPLICATION_JSON
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -24,12 +23,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @SpringBootTest
 @AutoConfigureMockMvc
+@Import([IntegrationTestMockingConfig]) //See additional notes at the bottom
 class PersonControllerIntTest extends Specification {
 
     @Autowired MockMvc mvc
 
     /**
-     * This is our mock we created below. We inject it in so we can control it in our specs.
+     * This is our mock we created in our test config. We inject it in so we can control it in our specs.
      */
     @Autowired ExternalRankingService externalRankingServiceMock
 
@@ -39,7 +39,7 @@ class PersonControllerIntTest extends Specification {
                                 .andExpect(status().is2xxSuccessful()).andReturn()
 
         then: 'we define the mock for JUST the external service'
-        externalRankingServiceMock.getRank({ Person p -> p.id == 1L } as Person) >> {
+        externalRankingServiceMock.getRank(_) >> {
             new Rank(level: 1, classification: 'Captain')
         }
         noExceptionThrown()
@@ -47,15 +47,18 @@ class PersonControllerIntTest extends Specification {
         when: 'inspecting the contents'
         def resultingJson = mvcResult.response.contentAsString
 
-        then:
+        then: 'the result contains a mix of mocked service data and actual wired component data'
         resultingJson == 'Capt James Kirk ~ Captain:Level 1'
     }
 
-    /**
-     * This is the key.  The new DetachedMockFactory allows us to create Mocks outside the Spec.
-     * That, combined with TestConfiguration getting priority for bean selection,
-     * means we can define new beans here using Mock objects. We can then inject these mocks into the spec.
+
+    /*
+        We could define our test configuration here, but if we have multiple integration tests
+        and we want to mock the same things, then it's better to share the configuration for context caching,
+        thus the import of IntegrationTestMockingConfig
      */
+
+    /*
     @TestConfiguration
     static class Config {
         private DetachedMockFactory factory = new DetachedMockFactory()
@@ -65,4 +68,5 @@ class PersonControllerIntTest extends Specification {
             factory.Mock(ExternalRankingService)
         }
     }
+    */
 }
