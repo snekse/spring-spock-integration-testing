@@ -30,7 +30,7 @@ dependencies {
 	compile('org.codehaus.groovy:groovy')
 	runtime('com.h2database:h2')
 
-    def spockVersion = '1.1-groovy-2.4-rc-2'
+    def spockVersion = '1.1-groovy-2.4-rc-4'
 
 	testCompile("org.springframework.boot:spring-boot-starter-test")
 	testCompile("org.spockframework:spock-core:$spockVersion")
