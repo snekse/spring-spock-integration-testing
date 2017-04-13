@@ -9,3 +9,6 @@ In Spring Boot 1.4, they introduced a lot of cool testing toys, including `@Mock
 Thankfully Spock 1.1 introduced the `DetachedMockFactory`. This, combined with the new Spring Boot `@TestConfiguration` means you can achieve a level up in your testing happiness factor.
 
 The heart of this example lives in our `PersonControllerIntTest`.  The `PersonControllerIntTest` spins up a Spring context so we can make a `MockMvc` call to a REST endpoint which pulls data from an h2 database via a Spring Data repo, but the "Rank" data we would normally get from an external service has been mocked.
+
+Testing provided by Travis CI 
+[![Build Status](https://travis-ci.org/snekse/spring-spock-integration-testing.svg?branch=master)](https://travis-ci.org/snekse/spring-spock-integration-testing)
