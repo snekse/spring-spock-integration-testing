@@ -1,6 +1,6 @@
-package com.objectpartners.eskens.services
+package com.opi.eskens.services
 
-import com.objectpartners.eskens.entities.Person
+import com.opi.eskens.entities.Person
 import org.springframework.stereotype.Service
 
 /**

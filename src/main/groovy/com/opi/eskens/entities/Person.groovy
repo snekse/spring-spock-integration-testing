@@ -1,4 +1,4 @@
-package com.objectpartners.eskens.entities
+package com.opi.eskens.entities
 
 import groovy.transform.Canonical
 

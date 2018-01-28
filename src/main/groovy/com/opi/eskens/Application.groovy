@@ -1,4 +1,4 @@
-package com.objectpartners.eskens
+package com.opi.eskens
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

@@ -1,7 +1,7 @@
-package com.objectpartners.eskens.controllers
+package com.opi.eskens.controllers
 
-import com.objectpartners.eskens.services.PersonService
-import com.objectpartners.eskens.services.Rank
+import com.opi.eskens.services.PersonService
+import com.opi.eskens.services.Rank
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

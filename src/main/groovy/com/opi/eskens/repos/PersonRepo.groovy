@@ -1,6 +1,6 @@
-package com.objectpartners.eskens.repos
+package com.opi.eskens.repos
 
-import com.objectpartners.eskens.entities.Person
+import com.opi.eskens.entities.Person
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

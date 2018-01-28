@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.3'
 	}
 }
 
@@ -14,6 +15,7 @@ apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'org.junit.platform.gradle.plugin'
 
 version = '0.0.1-SNAPSHOT'
 //noinspection GroovyUnusedAssignment
@@ -25,6 +27,7 @@ repositories {
 
 
 dependencies {
+	compile 'org.codehaus.groovy:groovy-all:2.4.13'
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.codehaus.groovy:groovy')
@@ -38,4 +41,15 @@ dependencies {
 	testCompile("com.blogspot.toomuchcoding:spock-subjects-collaborators-extension:1.2.1")
     // needed for mocking in Spock
     testCompile("cglib:cglib-nodep:2.2")
+
+	// JUnit
+	def junitVersion = '5.0.3'
+	testCompile("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+	testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+	testRuntime('org.junit.platform:junit-platform-launcher:1.0.3')
+	testCompile("org.mockito:mockito-core:2.11.0")
 }
+
+// This let's the groovy compiler handle the .java compilation so Java class can see Groovy classes
+sourceSets.main.java.srcDirs = []
+sourceSets.main.groovy.srcDirs += ["src/main/java"]
